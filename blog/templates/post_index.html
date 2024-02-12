@@ -1,0 +1,41 @@
+{% extends "base.html" %} 
+
+{% block content %}
+
+<div class="container mx-auto">
+  <div class="row">
+    <div class="col-md-8 py-4">
+      <div class="bg-success text-white mw-lg mx-auto mb-4 py-4 px-4 text-center">
+        <h3 class="mb-4">Latest from TechBlog</h3>
+        <p class="text-white mb-0">Lorem ipsum dolor sit amet, to the consectr adipiscing elit. Volutpat tempor to the condimentum vitae vel purus.</p>
+      </div>
+
+      {% for post in posts %}        
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <a href="{% url 'post_category' category=post.category.name %}" class="card-text text-muted h6">{{ post.category.name }}</a>
+          <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on }}</p>
+          <p class="card-text">{{ post.content|slice:":200" }}</p>
+          <a href="{% url 'post_detail' slug=post.slug %}" class="btn btn-success">Read More &rarr;</a>
+        </div>
+      </div>
+      {% endfor %}
+      
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+  </div>
+</div>
+    
+{% endblock content %}
+
